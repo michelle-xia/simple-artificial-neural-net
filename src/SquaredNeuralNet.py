@@ -9,9 +9,15 @@ def matrix_multiply(list_1, weight_mat):
     """This function multiplies a 1D list by a 5x5 matrix to return a 5x1 list"""
     output_list = []
     for i in range(5):
-        output_val = [sum(item * list_1[i]) for item in weight_mat[i]]
-        output_list.append(output_val[0])
+        temp = [sum([item * list_1[i]]) for item in weight_mat[i]]
+        output_val = transformation_function(temp[0])
+        output_list.append(output_val)
     return output_list
+
+
+def transformation_function(num):
+    """This function transforms output values to create a non-linear model"""
+    return num
 
 
 def calc_sse(output_list, target_list):
@@ -28,11 +34,12 @@ def calc_sse(output_list, target_list):
 def create_weights():
     """This function creates and returns a 5x5 matrix with random floats between 0 and 1"""
     weight_mat = []
-    mat_row = []
     for i in range(5):
+        mat_row = []
         for j in range(5):
             mat_row.append(random.random())
         weight_mat.append(mat_row)
+
     return weight_mat
 
 
@@ -48,6 +55,7 @@ def main():
     sse = 1000
     while sse > .001:
         output_list_1 = matrix_multiply(INPUT_LIST, weight_mat_1)
+        print("\nlist1",output_list_1)
         output_list_2 = matrix_multiply(output_list_1, weight_mat_2)
         sse = calc_sse(output_list_2, TARGET_LIST)
         weight_mat_1, weight_mat_2 = update_weights(weight_mat_1, weight_mat_2, output_list_1, output_list_2)
