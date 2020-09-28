@@ -1,2 +1,11 @@
 # simple-artificial-neural-net
  Creating a simple artificial neural net from scratch using a quadratic function on numbers 1-5 without any ML libraries
+
+# Data
+I used a simple 5 x 1 matrix with numbers 1-5 as input and two 5 x 5 weight matrices initiated with floats between 0 and 1.
+
+# Method
+1) I calculated two layers of output, z2 and z3 with matrix multiplication. For the transformation function, I used sigmoid (1 / (1 + e^-x)) to get a2 and a3 (output)
+2) Output was compared to the target 5 x 1 matrix and sum of squared error (SSE) was calculated. SSE drives the training process.
+3) To backpropagate, I took the partial derivative of the SSE equation with respect to each of the weights, multiplied this derivative by a convergence factor, and subtracted it to update both sets of weights. 
+4) New output will be calculated and SSE will be updated as long as SSE is greater than the accepted error.
