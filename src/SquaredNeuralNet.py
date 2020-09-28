@@ -4,50 +4,12 @@ from math import exp
 INPUT_LIST = [1, 2, 3, 4, 5]
 INPUT_MAT = [[1], [2], [3], [4], [5]]
 TARGET_LIST = [1, 4, 9, 16, 25]
-# weight_mat_1 = [[0 for j in range(0, 5)] for i in range(0, 5)]
-# weight_mat_2 = [[0 for j in range(0, 5)] for i in range(0, 5)]
-
 CONVERGENCE_FACTOR = 20
 
 
 def matrix_multiply(m1, m2):
     return [[sum(row * col for row, col in zip(m1_r, m2_c)) for m2_c in zip(*m2)] for m1_r in m1]
 
-def col_matrix_multiply(m1, m2):
-    return [[sum(col * row for col, row in zip(m1_c, m2_r)) for m2_r in m2] for m1_c in zip(*m1)]
-
-"""def matrix_multiply(m1, m2):
-    This function computes general maxtrix multiplication and returns the resulting matrix
-    assert len(m1) > 0
-    assert len(m2) > 0
-    # assert len(m1[0]) == len(m2)
-
-    if type(m1[0]) == list:
-        result = [[0 for i in range(len(m2[0]))] for j in range(len(m1))]
-        # row by row in m1
-        for i in range(len(m1)):
-            # column by column in m2
-            for j in range(len(m2[i])):
-                # row by row in m2
-                for k in range(len(m2)):
-                    result[i][j] += m1[i][k] * m2[k][j]
-
-    else:
-        result = [0 for i in range(len(m2[0]))]
-        for i in range(len(m2[0])):
-            for j in range(len(m1)):
-                result[i] += m1[j] * m2[j][i]
-
-    return result
-
-
-def matrix_multiply_column(m1, m2):
-    result = [[0 for i in range(len(m2))] for j in range(len(m1))]
-    for i in range(len(m1)):
-        for j in range(len(m2)):
-            result[i][j] += m1[j][0] * m2[j]
-    return result
-"""
 
 def transpose_matrix(mat):
     """This function transposes a 1 dimensional matrix and returns the result"""
@@ -105,8 +67,8 @@ def create_weights():
 
 
 def update_weights(weight_mat_1, weight_mat_2, a_list_2, output_list):
-    """This function updates and returns both weight matrices by subtracting the weight functions' partial derivative
-    with respect to the sum squared error function multiplied by the convergence factor"""
+    """This function updates and returns both weight matrices by subtracting the sse functions' partial derivative
+    with respect to the weights multiplied by the convergence factor"""
     assert len(weight_mat_1) == 5
     assert len(weight_mat_2) == 5
     assert len(weight_mat_1[0]) == 5
@@ -153,6 +115,7 @@ def update_weights(weight_mat_1, weight_mat_2, a_list_2, output_list):
     # update all weights
     weight_mat_2 = [[weight_mat_2[i][j] - jacobian_list_2[i][j] * CONVERGENCE_FACTOR for j in range(
         len(weight_mat_2[i]))]for i in range(len(weight_mat_2))]
+
     weight_mat_1 = [[weight_mat_1[i][j] - jacobian_list_1[i][j] * CONVERGENCE_FACTOR for j in range(
         len(weight_mat_1[i]))] for i in range(len(weight_mat_1))]
 
