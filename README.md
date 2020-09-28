@@ -1,5 +1,5 @@
 # simple-artificial-neural-net
- Creating a simple artificial neural net from scratch using a quadratic function on numbers 1-5 without any ML libraries
+ The purpose of this project is to gain a deeper understanding of the innerworkings of artificial neural networks. In order to accomplish that, I created a simple artificial neural net from scratch using a quadratic function on numbers 1-5 without any ML libraries.
 
 # Data
 I used a simple 5 x 1 matrix with numbers [1, 2, 3, 4, 5] as input, two 5 x 5 weight matrices containing randomized floats between 0 and 1, and a 5 x 1 matrix with [1, 4, 9, 16, 25] as the target.
