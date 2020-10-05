@@ -5,6 +5,7 @@ INPUT_LIST = [1, 2, 3, 4, 5]
 INPUT_MAT = [[1], [2], [3], [4], [5]]
 TARGET_LIST = [1, 4, 9, 16, 25]
 CONVERGENCE_FACTOR = 20
+EPSILON = .001
 
 
 def matrix_multiply(m1, m2):
@@ -60,20 +61,12 @@ def create_weights():
             mat_row.append(random.random())
         weight_mat.append(mat_row)
 
-    assert len(weight_mat) == 5
-    assert len(weight_mat[0]) == 5
-
     return weight_mat
 
 
 def update_weights(weight_mat_1, weight_mat_2, a_list_2, output_list):
     """This function updates and returns both weight matrices by subtracting the sse functions' partial derivative
     with respect to the weights multiplied by the convergence factor"""
-    assert len(weight_mat_1) == 5
-    assert len(weight_mat_2) == 5
-    assert len(weight_mat_1[0]) == 5
-    assert len(weight_mat_2[0]) == 5
-    assert len(a_list_2) == 5  # a_list_2 is 1 x 5
 
     # convert to 2d list
     a_list_2 = [a_list_2]
@@ -153,16 +146,16 @@ def main():
     output_list = []
     sse = 1000
     epoch = 0
-    while sse > .001:
+    while sse > EPSILON:
         # compute values at layer 2
-        z_mat_2 = matrix_multiply(INPUT_MAT, weight_mat_1)  # creates 5 x 5
-        z_list_2 = transpose_matrix(z_mat_2)  # creates 1 x 5
+        z_list_2 = matrix_multiply([INPUT_LIST], weight_mat_1)  # creates 5 x 5
+        z_list_2 = z_list_2[0]  # creates 1 x 5
         a_list_2 = [transformation_function(z2) for z2 in z_list_2]  # 1 x 5
-        a_mat_2 = transpose_matrix(a_list_2)  # 5 x 1
+        # a_mat_2 = transpose_matrix(a_list_2)  # 5 x 1
 
         # compute output values
-        z_mat_3 = matrix_multiply(weight_mat_2, a_mat_2)  # 5 x 1
-        z_list_3 = transpose_matrix(z_mat_3)  # 1 x 5
+        z_list_3 = matrix_multiply([a_list_2], weight_mat_2)  # 5 x 1
+        z_list_3 = z_list_3[0]  # 1 x 5
         output_list = [transformation_function(z3) for z3 in z_list_3]  # 1 x 5
 
         # compute SSE
