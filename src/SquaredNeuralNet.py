@@ -4,7 +4,7 @@ from math import exp
 INPUT_LIST = [1, 2, 3, 4, 5]
 INPUT_MAT = [[1], [2], [3], [4], [5]]
 TARGET_LIST = [1, 4, 9, 16, 25]
-CONVERGENCE_FACTOR = 20
+CONVERGENCE_FACTOR = 0.5
 
 
 def matrix_multiply(m1, m2):
